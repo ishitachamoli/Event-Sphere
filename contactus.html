@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Form</title>
+  <style>
+    :root {
+      --bg-color: #f9fafc;
+      --text-color: #222;
+      --card-bg-color: #fff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 20px;
+    }
+
+    .contact-section {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: var(--card-bg-color);
+      color: var(--text-color);
+      box-shadow: 0 4px 20px var(--shadow-color);
+      margin: 40px auto;
+      max-width: 700px;
+      border-radius: 10px;
+    }
+
+    .contact-section h2 {
+      font-size: 2em;
+      margin-bottom: 25px;
+      color: var(--text-color);
+    }
+
+    #contactForm {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: var(--text-color);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 35px 10px 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    textarea {
+      max-height: 200px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: crimson;
+      outline: none;
+    }
+
+    .error-message {
+      display: block;
+      color: #e74c3c;
+      font-size: 0.9em;
+      margin-top: 4px;
+      min-height: 18px;
+    }
+
+    .valid-icon {
+      position: absolute;
+      right: 10px;
+      top: 38px;
+      color: green;
+      display: none;
+      font-weight: bold;
+    }
+
+    input.valid, textarea.valid {
+      border-color: green;
+    }
+
+    input.invalid, textarea.invalid {
+      border-color: #e74c3c;
+    }
+
+    input.valid + .error-message + .valid-icon,
+    textarea.valid + .error-message + .valid-icon {
+      display: inline;
+    }
+
+    #submitBtn {
+      padding: 12px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #submitBtn:disabled {
+      background-color: #888;
+      cursor: not-allowed;
+    }
+
+    #submitBtn:not(:disabled):hover {
+      background-color: #c41e3a;
+    }
+
+    #successMessage {
+      color: green;
+      font-weight: bold;
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <section class="contact-section">
+    <h2>📩 Contact Us</h2>
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+        <span class="error-message"></span>
+        <span class="valid-icon">✔</span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <span class="error-message"></span>
+        <span class="valid-icon">✔</span>
+      </div>
+      <div class="form-group">
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" placeholder="Write your message..."></textarea>
+        <span class="error-message"></span>
+        <span class="valid-icon">✔</span>
+      </div>
+      <button type="submit" id="submitBtn" disabled>Send Message</button>
+      <p id="successMessage">✅ Message sent successfully!</p>
+    </form>
+  </section>
+
+  <script>
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
+    const form = document.getElementById("contactForm");
+    const successMsg = document.getElementById("successMessage");
+
+    function validate() {
+      let valid = true;
+
+      const fields = [
+        { input: nameInput, minLength: 3, errorMessage: "Name must be at least 3 characters" },
+        { input: emailInput, pattern: /\S+@\S+\.\S+/, errorMessage: "Enter a valid email" },
+        { input: messageInput, minLength: 10, errorMessage: "Message must be at least 10 characters" }
+      ];
+
+      fields.forEach(field => {
+        const { input, minLength, pattern, errorMessage } = field;
+        let isValid = true;
+
+        if (pattern) {
+          isValid = pattern.test(input.value);
+        } else if (minLength) {
+          isValid = input.value.trim().length >= minLength;
+        }
+
+        if (isValid) {
+          input.classList.add("valid");
+          input.classList.remove("invalid");
+          input.nextElementSibling.textContent = "";
+        } else {
+          input.classList.add("invalid");
+          input.classList.remove("valid");
+          input.nextElementSibling.textContent = errorMessage;
+          valid = false;
+        }
+      });
+
+      submitBtn.disabled = !valid;
+    }
+
+    [nameInput, emailInput, messageInput].forEach(input => {
+      input.addEventListener("input", validate);
+    });
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      form.reset();
+      [nameInput, emailInput, messageInput].forEach(i => i.classList.remove("valid"));
+      submitBtn.disabled = true;
+      setTimeout(() => { successMsg.style.display = "none"; }, 5000);
+    });
+  </script>
+</body>
+</html>
