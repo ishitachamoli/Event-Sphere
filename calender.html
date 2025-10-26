@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      --bg-color: #f9fafc;
+      --text-color: #222;
+      --card-bg-color: #fff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --secondary-text: #555;
+      --navbar-bg: crimson;
+    }
+
+    #theme-toggle:checked ~ .page-wrapper {
+      --bg-color: #121212;
+      --text-color: #fff;
+      --card-bg-color: #1a1a1a;
+      --shadow-color: rgba(255, 255, 255, 0.1);
+      --secondary-text: #ccc;
+      --navbar-bg: #444;
+    }
+
+    .page-wrapper {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      padding-bottom: 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--navbar-bg);
+      color: white;
+      font-family: Calibri, sans-serif;
+    }
+
+    .navdiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .logo img {
+      height: 65px;
+      width: auto;
+    }
+
+    li {
+      list-style: none;
+      display: inline-block;
+      margin-right: 25px;
+    }
+
+    li a, .mode-btn {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .mode-btn {
+      background-color: crimson;
+      padding: 8px 16px;
+      border-radius: 5px;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .mode-btn:hover {
+      background-color: #c41e3a;
+    }
+
+    #menu-toggle,
+    #theme-toggle {
+      display: none;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      ul {
+        display: none;
+        flex-direction: column;
+        background: crimson;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 200px;
+        padding: 20px;
+      }
+
+      #menu-toggle:checked ~ ul {
+        display: flex;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+    }
+
+    #slider {
+      width: 100%;
+      height: 50vh;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .inner {
+      display: flex;
+      width: 400%;
+      height: 100%;
+      animation: slide 16s infinite;
+    }
+
+    .slide {
+      width: 25%;
+      flex: 0 0 25%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes slide {
+      0% { margin-left: 0; }
+      20% { margin-left: 0; }
+      25% { margin-left: -100%; }
+      45% { margin-left: -100%; }
+      50% { margin-left: -200%; }
+      70% { margin-left: -200%; }
+      75% { margin-left: -300%; }
+      95% { margin-left: -300%; }
+      100% { margin-left: 0; }
+    }
+
+    .top-categories {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .top-categories h2 {
+      font-size: 2.2em;
+      margin-bottom: 30px;
+      color: var(--text-color);
+    }
+
+    .category-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      min-width: 150px;
+      max-width: 220px;
+      flex: 1 1 auto;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background-color: var(--card-bg-color);
+      color: var(--text-color);
+    }
+
+    .category-card:hover {
+      transform: scale(1.05);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .category-label {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* ===== CALENDAR POPUP ===== */
+    .calendar-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .calendar-box {
+      background: var(--card-bg-color);
+      color: var(--text-color);
+      border-radius: 15px;
+      box-shadow: 0 4px 18px var(--shadow-color);
+      width: 90%;
+      max-width: 400px;
+      overflow: hidden;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .calendar-header {
+      background-color: crimson;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 1.4em;
+      font-weight: bold;
+      border-radius: 15px 15px 0 0;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: crimson;
+      color: white;
+      border: none;
+      font-size: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 2px 8px;
+      transition: 0.2s;
+    }
+
+    .close-btn:hover {
+      background: #c41e3a;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      padding: 15px;
+      background: var(--card-bg-color);
+    }
+
+    .day-name {
+      background: #f3f3f3;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.9em;
+    }
+
+    .day {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 0.95em;
+      cursor: default;
+    }
+
+    .day.event {
+      background: crimson;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .day.event:hover {
+      transform: scale(1.05);
+    }
+
+    .event-info {
+      text-align: center;
+      font-weight: bold;
+      color: var(--secondary-text);
+      padding: 15px 0 20px;
+      font-size: 0.95em;
+      border-top: 1px solid #eee;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .contact-section {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: var(--card-bg-color);
+      color: var(--text-color);
+      box-shadow: 0 4px 20px var(--shadow-color);
+      margin: 40px auto;
+      max-width: 700px;
+      border-radius: 10px;
+    }
+
+    .contact-section h2 {
+      font-size: 2em;
+      margin-bottom: 25px;
+      color: var(--text-color);
+    }
+
+    #contactForm {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: var(--text-color);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 35px 10px 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    textarea {
+      max-height: 200px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: crimson;
+      outline: none;
+    }
+
+    .error-message {
+      display: block;
+      color: #e74c3c;
+      font-size: 0.9em;
+      margin-top: 4px;
+      min-height: 18px;
+    }
+
+    .valid-icon {
+      position: absolute;
+      right: 10px;
+      top: 38px;
+      color: green;
+      display: none;
+      font-weight: bold;
+    }
+
+    input.valid, textarea.valid {
+      border-color: green;
+    }
+
+    input.invalid, textarea.invalid {
+      border-color: #e74c3c;
+    }
+
+    input.valid + .error-message + .valid-icon,
+    textarea.valid + .error-message + .valid-icon {
+      display: inline;
+    }
+
+    #submitBtn {
+      padding: 12px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #submitBtn:disabled {
+      background-color: #888;
+      cursor: not-allowed;
+    }
+
+    #submitBtn:not(:disabled):hover {
+      background-color: #c41e3a;
+    }
+
+            
+        /* --- Footer Styles --- */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--navbar-bg);
+            color: white;
+            font-family: Calibri, sans-serif;
+            text-align: center;
+        }
+        
+        .footer p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icon {
+            fill: #fff;
+            width: 24px;
+            height: 24px;
+            transition: fill 0.3s ease;
+        }
+        
+        .footer-social-links a:hover .social-icon {
+            fill: #ddd;
+        }
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="theme-toggle" />
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo">
+          <img src="images/Logo.jpg" alt="Event Sphere Logo" />
+        </div>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon">☰</label>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><label for="theme-toggle" class="mode-btn">Toggle Theme 🌙</label></li>
+          <li><a href="#cal">Calendar</a></li>
+          <li><a href="#contact">Contact US</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="slider">
+      <div class="inner">
+        <div class="slide"><img src="images/Banner 1.jpg" alt="Slide 1" /></div>
+        <div class="slide"><img src="images/Banner 2.jpg" alt="Slide 2" /></div>
+        <div class="slide"><img src="images/Banner 3.jpg" alt="Slide 3" /></div>
+        <div class="slide"><img src="images/Banner-4.jpg" alt="Slide 4" /></div>
+      </div>
+    </div>
+
+    <section class="top-categories">
+      <h2>🎯 Top Categories</h2>
+      <div class="category-container">
+        <div class="category-card">
+          <img src="https://placehold.co/220x180/87CEEB/ffffff?text=Sports" alt="">
+          <div class="category-label">⚽ Sports</div>
+        </div>
+        <div class="category-card">
+          <img src="https://placehold.co/220x180/FFA07A/ffffff?text=Comedy" alt="">
+          <div class="category-label">😂 Comedy</div>
+        </div>
+        <div class="category-card">
+          <img src="https://placehold.co/220x180/90EE90/ffffff?text=Theatre" alt="">
+          <div class="category-label">🎭 Theatre</div>
+        </div>
+        <div class="category-card">
+          <img src="https://placehold.co/220x180/FF69B4/ffffff?text=Movies" alt="">
+          <div class="category-label">🎬 Movies</div>
+        </div>
+        <div class="category-card">
+          <img src="https://placehold.co/220x180/8A2BE2/ffffff?text=Concerts" alt="">
+          <div class="category-label">🎵 Concerts</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALENDAR POPUP ===== -->
+    <div class="calendar-popup" id="calendarPopup">
+      <div class="calendar-box">
+        <div class="calendar-header">
+          October 2025
+          <button class="close-btn" id="closeCalendar">&times;</button>
+        </div>
+        <div class="calendar-grid" id="octDays"></div>
+        <div class="event-info" id="eventInfo">Click on a highlighted day to see event details.</div>
+      </div>
+    </div>
+
+    <section class="contact-section" id="contact">
+      <h2>📩 Contact Us</h2>
+      <form id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name">
+          <span class="error-message"></span>
+          <span class="valid-icon">✔</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email">
+          <span class="error-message"></span>
+          <span class="valid-icon">✔</span>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message:</label>
+          <textarea id="message" name="message" placeholder="Write your message..."></textarea>
+          <span class="error-message"></span>
+          <span class="valid-icon">✔</span>
+        </div>
+        <button type="submit" id="submitBtn" disabled>Send Message</button>
+        <p id="successMessage" style="color:green; font-weight:bold; display:none; margin-top:10px;">
+          ✅ Message sent successfully!
+        </p>
+      </form>
+    </section>
+
+     <footer class="footer">
+            <p>Powered by Chitkara University</p>
+            <div class="footer-social-links">
+                <!-- LinkedIn Icon -->
+                <a href="https://www.linkedin.com/school/chitkara-university/" target="_blank">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.8 53.8 0 11107.59 0c0 29.7-24.09 54.3-53.8 54.3zM447.9 448h-92.4V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.6V448h-92.5V148.9h88.8v40.8h1.3c12.4-23.4 42.5-48.3 87.4-48.3 93.6 0 110.9 61.6 110.9 141.7V448z"/>
+                    </svg>
+                </a>
+                <!-- Instagram Icon -->
+                <a href="https://www.instagram.com/chitkarau/" target="_blank">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8c63.6 0 114.9-51.3 114.9-114.9S287.7 141 224.1 141zm0 188.2c-40.5 0-73.4-32.9-73.4-73.4s32.9-73.4 73.4-73.4 73.4 32.9 73.4 73.4-32.9 73.4-73.4 73.4zm146.4-194.3c0 14.9-12.1 27-27 27s-27-12.1-27-27 12.1-27 27-27 27 12.1 27 27zM398.8 80c-8.4-21.3-24.9-37.8-46.2-46.2C325.3 24 256 24 256 24s-69.3 0-96.6 9.8c-21.3 8.4-37.8 24.9-46.2 46.2C104 107.3 104 176.6 104 176.6s0 69.3 9.8 96.6c8.4 21.3 24.9 37.8 46.2 46.2C186.7 329 256 329 256 329s69.3 0 96.6-9.8c21.3-8.4 37.8-24.9 46.2-46.2 9.8-27.3 9.8-96.6 9.8-96.6s0-69.3-9.8-96.6z"/>
+                    </svg>
+                </a>
+                <!-- X (Twitter) Icon -->
+                <a href="https://twitter.com/ChitkaraU" target="_blank">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M459.4 151.7c.3 4.5 .3 9 .3 13.6 0 138.7-105.6 298.9-298.9 298.9-59.5 0-114.9-17.2-161.5-47 8.4 1 16.8 1.6 25.7 1.6 49.1 0 94.2-16.8 130.1-45.5-46-1-84.8-31.1-98.1-72.8a106.3 106.3 0 0047.7-1.6c-48.1-9.7-84.2-52-84.2-102.6v-1.3c14.1 7.8 30.2 12.6 47.4 13.2a104.9 104.9 0 01-46.6-87.5c0-19.5 5.2-37.5 14.1-53a298.6 298.6 0 00216.5 109.8c-15.9-76.1 41.4-137.7 112.5-137.7 33 0 62.8 13.8 83.7 36.3a208 208 0 0065.8-25.2c-6.8 21.3-21.3 39.1-40.4 50.5a211 211 0 0060.5-16.1c-13.2 20.4-30.1 38.4-49.5 52.6z"/>
+                    </svg>
+                </a>
+                <!-- Facebook Icon -->
+                <a href="https://www.facebook.com/ChitkaraU/" target="_blank">
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path d="M279.1 288l14.2-92.7h-88.9v-60.1c0-25.4 12.4-50.1 52.2-50.1H296V6.3S273.7 0 252.1 0c-73.5 0-121.6 44.4-121.6 124.7v70.6H64v92.7h66.5V512h100.2V288z"/>
+                    </svg>
+                </a>
+            </div>
+            <p>&copy; 2025 Chitkara University. All rights reserved.</p>
+        </footer>
+        
+    </div>
+
+  <script>
+
+    
+    // ===== Contact Form Validation =====
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
+    const form = document.getElementById("contactForm");
+    const successMsg = document.getElementById("successMessage");
+
+    function validate() {
+      let valid = true;
+      const fields = [
+        { input: nameInput, minLength: 3, errorMessage: "Name must be at least 3 characters" },
+        { input: emailInput, pattern: /\S+@\S+\.\S+/, errorMessage: "Enter a valid email" },
+        { input: messageInput, minLength: 10, errorMessage: "Message must be at least 10 characters" }
+      ];
+
+      fields.forEach(field => {
+        const { input, minLength, pattern, errorMessage } = field;
+        let isValid = true;
+
+        if (pattern) {
+          isValid = pattern.test(input.value);
+        } else if (minLength) {
+          isValid = input.value.trim().length >= minLength;
+        }
+
+        if (isValid) {
+          input.classList.add("valid");
+          input.classList.remove("invalid");
+          input.nextElementSibling.textContent = "";
+        } else {
+          input.classList.add("invalid");
+          input.classList.remove("valid");
+          input.nextElementSibling.textContent = errorMessage;
+          valid = false;
+        }
+      });
+
+      submitBtn.disabled = !valid;
+    }
+
+    [nameInput,emailInput,messageInput].forEach(input => input.addEventListener("input", validate));
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      form.reset();
+      [nameInput,emailInput,messageInput].forEach(i => i.classList.remove("valid"));
+      submitBtn.disabled = true;
+      setTimeout(() => { successMsg.style.display = "none"; }, 5000);
+    });
+
+    // ===== Calendar Popup Functionality =====
+    const calendarPopup = document.getElementById("calendarPopup");
+    const calendarLink = document.querySelector('a[href="#cal"]');
+    const closeCalendar = document.getElementById("closeCalendar");
+    const eventInfo = document.getElementById("eventInfo");
+    const octContainer = document.getElementById("octDays");
+
+    calendarLink.onclick = (e) => { e.preventDefault(); calendarPopup.style.display = "flex"; };
+    closeCalendar.onclick = () => calendarPopup.style.display = "none";
+    window.onclick = (e) => { if (e.target === calendarPopup) calendarPopup.style.display = "none"; };
+
+    const eventDates = [5, 6, 8, 11, 16, 21, 29, 31];
+    const eventDescriptions = {
+      5: "Tech Fest Opening 🎉",
+      6: "Sports Meet ⚽",
+      8: "Comedy Night 😂",
+      11: "Theatre Play 🎭",
+      16: "Movie Marathon 🎬",
+      21: "Workshop Day 💡",
+      29: "SmHackathon 🏆",
+      31: "Cultural Fest 🌟"
+    };
+
+    const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    octContainer.innerHTML = dayNames.map(d => `<div class='day-name'>${d}</div>`).join("");
+
+    // October 2025 starts on Wednesday (index 3)
+    for (let i = 0; i < 3; i++) octContainer.innerHTML += "<div class='day'></div>";
+
+    for (let i = 1; i <= 31; i++) {
+      const isEvent = eventDates.includes(i);
+      const dayClass = isEvent ? "day event" : "day";
+      octContainer.innerHTML += `<div class="${dayClass}" data-day="${i}">${i}</div>`;
+    }
+
+    octContainer.querySelectorAll(".day.event").forEach(day => {
+      day.onclick = () => {
+        const d = day.dataset.day;
+        eventInfo.textContent = `📅 October ${d}: ${eventDescriptions[d] || "Event details coming soon!"}`;
+      };
+    });
+  </script>
+</body>
+</html>
