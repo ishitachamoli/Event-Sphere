@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sphere Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* A simple rule to ensure consistent box model behavior */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* General body and page layout styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        /* Styles for the form container card */
+        .container {
+            width: 100%;
+            max-width: 28rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Styles for the main title on the form */
+        .title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #b91c1c;
+        }
+
+        /* Styles for each input group (label + input) */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styles for the form labels */
+        .form-label {
+            display: block;
+            color: #1f2937;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Styles for all form input fields */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            color: #374151;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            outline: none;
+        }
+
+        /* Styles for focus state of inputs */
+        .form-input:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Styles for the submit button */
+        .submit-button {
+            width: 100%;
+            background-color: #b91c1c;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Hover and focus styles for the button */
+        .submit-button:hover {
+            background-color: #991b1b;
+            opacity: 0.9;
+        }
+
+        /* Styles for the link text below the button */
+        .link-text {
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Styles for the link itself, with a nicer hover effect */
+        .link {
+            font-weight: bold;
+            color: #000;
+            text-decoration: underline;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        
+        /* Hover styles for the link with a subtle lift effect */
+        .link:hover {
+            color: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        /* Styles for the checkbox and its label */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        .checkbox-input {
+            width: 1rem;
+            height: 1rem;
+            accent-color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Form Container -->
+    <div class="container">
+        <h2 class="title">Event Sphere Register</h2>
+        <form action="#" method="post">
+            <div class="input-group">
+                <label for="nameInput" class="form-label">Full Name</label>
+                <input type="text" id="nameInput" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            <div class="input-group">
+                <label for="studentIdInput" class="form-label">Student ID</label>
+                <input type="text" id="studentIdInput" class="form-input" placeholder="Enter your Student ID" required>
+            </div>
+            <div class="input-group">
+                <label for="emailInput" class="form-label">Email</label>
+                <input type="email" id="emailInput" class="form-input" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="regPasswordInput" class="form-label">Password</label>
+                <input type="password" id="regPasswordInput" class="form-input" placeholder="Enter your password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirmPasswordInput" class="form-label">Confirm Password</label>
+                <input type="password" id="confirmPasswordInput" class="form-input" placeholder="Confirm your password" required>
+            </div>
+            <div class="input-group">
+                <label for="majorInput" class="form-label">Major/Department</label>
+                <input type="text" id="majorInput" class="form-input" placeholder="e.g., Computer Science, Business">
+            </div>
+            <div class="input-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" required class="checkbox-input">
+                    <span style="margin-left: 0.5rem;">I agree to the <a href="terms.html" class="link">Terms of Service</a></span>
+                </label>
+            </div>
+            <button type="submit" class="submit-button">Register</button>
+            <p class="link-text">
+                Already have an account? 
+                <a href="login.html" class="link">Login here.</a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>
