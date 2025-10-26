@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cookie Preferences</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+            overflow-x: hidden; 
+        }
+
+        .container {
+            width: 100%;
+            max-width: 36rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #DC143C;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 1.5rem;
+        }
+
+        .cookie-group {
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .group-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .group-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            padding-left: 2rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #DC143C;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #DC143C;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #savePreferences {
+            background-color: #DC143C;
+            color: white;
+            border: 2px solid #DC143C;
+        }
+
+        #savePreferences:hover {
+            background-color: #B3002E; 
+        }
+
+        #goBack {
+            background-color: transparent;
+            color: #1f2937;
+            border: 2px solid #d1d5db;
+        }
+
+        #goBack:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">Manage Your Cookie Preferences</h1>
+        <p class="subtitle">You can adjust your preferences for different types of cookies below. Remember that necessary cookies are required for the site to function correctly.</p>
+
+        <div id="settingsForm">
+            <!-- Group 1: Necessary (Always On) -->
+            <div class="cookie-group">
+                <div class="group-header">
+                    <span class="group-name">Necessary Cookies</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="necessary" disabled checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="group-description">These cookies are essential for the operation of the website and cannot be switched off.</p>
+            </div>
+
+            <!-- Group 2: Analytics -->
+            <div class="cookie-group">
+                <div class="group-header">
+                    <span class="group-name">Analytics Cookies</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="analytics">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="group-description">These cookies help us understand how visitors use the site so we can improve the user experience (e.g., page visit counts).</p>
+            </div>
+
+            <!-- Group 3: Functionality -->
+            <div class="cookie-group">
+                <div class="group-header">
+                    <span class="group-name">Functionality Cookies</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="functionality">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="group-description">These cookies remember choices you make (like language or region) to provide enhanced, more personalized features.</p>
+            </div>
+            
+            <!-- Group 4: Marketing -->
+            <div class="cookie-group">
+                <div class="group-header">
+                    <span class="group-name">Marketing Cookies</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="marketing">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="group-description">Used to track visitors across websites to display relevant and engaging advertising.</p>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="goBack" class="cookie-btn">Go Back</button>
+            <button id="savePreferences" class="cookie-btn">Save Preferences</button>
+        </div>
+
+    </div>
+
+    <script>
+        // start the app when the page is loaded
+        document.addEventListener('DOMContentLoaded', setupCookieManager);
+        
+        // local storage key (must match the auth page!)
+        const COOKIE_KEY = 'eventSphereCookieConsent'; 
+
+        // main setup function
+        function setupCookieManager() {
+            // grab all the buttons and checkboxes
+            const saveBtn = document.getElementById('savePreferences');
+            const backBtn = document.getElementById('goBack');
+            const analyticsCheck = document.getElementById('analytics');
+            const functionalityCheck = document.getElementById('functionality');
+            const marketingCheck = document.getElementById('marketing');
+            
+            // checks local storage for old settings
+            function loadPreferences() {
+                try {
+                    const savedData = localStorage.getItem(COOKIE_KEY);
+                    if (savedData) {
+                        const prefs = JSON.parse(savedData);
+                        // only set the toggles if the values exist in storage
+                        if (typeof prefs.analytics === 'boolean') {
+                            analyticsCheck.checked = prefs.analytics;
+                        }
+                        if (typeof prefs.functionality === 'boolean') {
+                            functionalityCheck.checked = prefs.functionality;
+                        }
+                        if (typeof prefs.marketing === 'boolean') {
+                            marketingCheck.checked = prefs.marketing;
+                        }
+                    } else {
+                        // if no data, set all toggles to 'on' by default
+                        analyticsCheck.checked = true;
+                        functionalityCheck.checked = true;
+                        marketingCheck.checked = true;
+                    }
+                } catch (e) {
+                    console.error('error pulling cookie prefs from storage:', e);
+                }
+            }
+
+            // runs when user hits 'Save Prefs'
+            function savePreferences() {
+                // grab current states for saving
+                const prefs = {
+                    analytics: analyticsCheck.checked,
+                    functionality: functionalityCheck.checked,
+                    marketing: marketingCheck.checked,
+                    // flag for auth.html to stop showing banner
+                    manager_completed: true
+                };
+
+                try {
+                    // saves the JSON string to local storage
+                    localStorage.setItem(COOKIE_KEY, JSON.stringify(prefs));
+                    // use a custom message instead of alert()
+                    displayMessage('Preferences saved successfully! Returning to login page...', '#4caf50');
+                    // wait a moment then go back to the main page
+                    setTimeout(() => {
+                        window.location.href = 'auth.html';
+                    }, 1500); 
+
+                } catch (e) {
+                    console.error('error saving cookie prefs to storage:', e);
+                    displayMessage('Error: Could not save preferences.', '#DC143C');
+                }
+            }
+            
+            // func to show a quick message instead of alert()
+            function displayMessage(text, color) {
+                let msgElement = document.getElementById('statusMessage');
+                if (!msgElement) {
+                    msgElement = document.createElement('div');
+                    msgElement.id = 'statusMessage';
+                    msgElement.style.cssText = `
+                        position: fixed; top: 10px; right: 10px; 
+                        padding: 10px 20px; border-radius: 5px; 
+                        color: white; font-weight: bold; z-index: 2000;
+                        transition: opacity 0.5s;
+                    `;
+                    document.body.appendChild(msgElement);
+                }
+                msgElement.textContent = text;
+                msgElement.style.backgroundColor = color;
+                msgElement.style.opacity = 1;
+
+                setTimeout(() => {
+                    msgElement.style.opacity = 0;
+                }, 1400);
+            }
+
+            // set up event listeners
+            saveBtn.addEventListener('click', savePreferences);
+            
+            // just go straight back to the login page on 'Go Back'
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'auth.html'; 
+            });
+
+            // run load function right away
+            loadPreferences();
+        }
+    </script>
+</body>
+</html>
