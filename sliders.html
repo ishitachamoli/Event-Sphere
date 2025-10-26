@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CSS Autoplay Slider</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    #slider{
+      width:100%;
+      max-width:1920px;
+      height:550px;
+      margin:40px auto;
+      position:relative;
+      overflow:hidden;
+      border-radius:0px;
+      box-shadow:0 8px 30px rgba(0,0,0,.25);
+    }
+
+    .inner{
+      display:flex;
+      width:400%;
+      height:100%;
+      animation:slide 16s infinite;
+    }
+    .slide{
+      width:25%;
+      flex:0 0 25%;
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* autoplay keyframes */
+    @keyframes slide {
+      0%   {margin-left:0;}
+      20%  {margin-left:0;}
+      25%  {margin-left:-100%;}
+      45%  {margin-left:-100%;}
+      50%  {margin-left:-200%;}
+      70%  {margin-left:-200%;}
+      75%  {margin-left:-300%;}
+      95%  {margin-left:-300%;}
+      100% {margin-left:0;} /* smooth loop back */
+    }
+
+    /* arrows */
+    .arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:32px;
+      background:rgba(0,0,0,.4);
+      color:#fff;
+      border-radius:50%;
+      width:44px;height:44px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+    }
+    .arrow:hover{background:rgba(0,0,0,.6);}
+    .prev{left:15px;}
+    .next{right:15px;}
+
+    /* dots */
+    .dots{
+      position:absolute;
+      bottom:15px; left:50%;
+      transform:translateX(-50%);
+      display:flex; gap:10px;
+    }
+    .dots span{
+      width:12px;height:12px;
+      border-radius:50%;
+      background:rgba(255,255,255,.5);
+      cursor:pointer;
+    }
+
+    /* Base Reset */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+#slider{
+  width:100%;
+  max-width:1920px;
+  height:55vh; /* responsive height instead of fixed 550px */
+  margin:40px auto;
+  position:relative;
+  overflow:hidden;
+  border-radius:0px;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+.inner{
+  display:flex;
+  width:400%;
+  height:100%;
+  animation:slide 16s infinite;
+}
+.slide{
+  width:25%;
+  flex:0 0 25%;
+}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* autoplay keyframes */
+@keyframes slide {
+  0%   {margin-left:0;}
+  20%  {margin-left:0;}
+  25%  {margin-left:-100%;}
+  45%  {margin-left:-100%;}
+  50%  {margin-left:-200%;}
+  70%  {margin-left:-200%;}
+  75%  {margin-left:-300%;}
+  95%  {margin-left:-300%;}
+  100% {margin-left:0;}
+}
+
+/* arrows */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:32px;
+  background:rgba(0,0,0,.4);
+  color:#fff;
+  border-radius:50%;
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition:0.3s;
+}
+.arrow:hover{background:rgba(0,0,0,.6);}
+.prev{left:15px;}
+.next{right:15px;}
+
+/* dots */
+.dots{
+  position:absolute;
+  bottom:15px; left:50%;
+  transform:translateX(-50%);
+  display:flex; gap:10px;
+}
+.dots span{
+  width:12px;height:12px;
+  border-radius:50%;
+  background:rgba(255,255,255,.5);
+  cursor:pointer;
+}
+
+/* responsive design */
+@media (max-width:1024px){
+  #slider{height:50vh;} /* tablets */
+  .arrow{font-size:28px;width:40px;height:40px;}
+}
+@media (max-width:768px){
+  #slider{height:40vh;} /* small tablets / landscape mobile */
+  .arrow{font-size:24px;width:36px;height:36px;}
+  .dots span{width:10px;height:10px;}
+}
+@media (max-width:480px){
+  #slider{height:30vh;} /* phones */
+  .arrow{font-size:20px;width:30px;height:30px;}
+  .dots span{width:8px;height:8px;}
+}
+
+    /* .dots span.active{background:#fff;} */
+    
+  </style>
+</head>
+<body>
+  <div id="slider">
+    <div class="inner">
+      <div class="slide"><img src="/images/Banner 1.jpg" alt="Slide 1"></div>
+      <div class="slide"><img src="/images/Banner 2.jpg" alt="Slide 2"></div>
+      <div class="slide"><img src="/images/Banner 3.jpg" alt="Slide 3"></div>
+      <div class="slide"><img src="/images/Banner 4.jpg" alt="Slide 4"></div>
+    </div>
+
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+
+    <div class="dots">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+      <span></span>  
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sphere Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* A simple rule to ensure consistent box model behavior */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* General body and page layout styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Styles for the form container card */
+        .container {
+            width: 100%;
+            max-width: 28rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Styles for the main title on the form */
+        .title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #b91c1c;
+        }
+
+        /* Styles for each input group (label + input) */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styles for the form labels */
+        .form-label {
+            display: block;
+            color: #1f2937;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Styles for all form input fields */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            color: #374151;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            outline: none;
+        }
+
+        /* Styles for focus state of inputs */
+        .form-input:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Styles for the submit button */
+        .submit-button {
+            width: 100%;
+            background-color: #b91c1c;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Hover and focus styles for the button */
+        .submit-button:hover {
+            background-color: #991b1b;
+            opacity: 0.9;
+        }
+
+        /* Styles for the link text below the button */
+        .link-text {
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Styles for the link itself, with a nicer hover effect */
+        .link {
+            font-weight: bold;
+            color: #000;
+            text-decoration: underline;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        
+        /* Hover styles for the link with a subtle lift effect */
+        .link:hover {
+            color: #b91c1c;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Form Container -->
+    <div class="container">
+        <h2 class="title">Event Sphere Login</h2>
+        <form action="#" method="post">
+            <div class="input-group">
+                <label for="usernameInput" class="form-label">Username</label>
+                <input type="text" id="usernameInput" class="form-input" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input type="password" id="passwordInput" class="form-input" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-button">Sign In</button>
+            <p class="link-text">
+                Don't have an account? 
+                <a href="register.html" class="link">Register here.</a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>
