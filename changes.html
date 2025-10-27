@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <style>
+    :root {
+      --navbar-bg: #000;
+      --card-bg-color: #fff;
+      --text-color: #222;
+      --body-bg: #f8f9fa;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: var(--body-bg);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .navbar {
+      background-color: var(--navbar-bg);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navdiv ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navdiv ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 45px;
+      border-radius: 8px;
+    }
+
+    /* 🔥 NEW CODE START: Theme Color Picker */
+    .palette-icon {
+      font-size: 22px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: transform 0.2s;
+    }
+    .palette-icon:hover {
+      transform: scale(1.2);
+    }
+    #color-picker {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      position: absolute;
+    }
+    /* 🔥 NEW CODE END */
+
+    /* 🔥 NEW CODE START: Filter Section */
+    .filter-section {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .filter-section select {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    /* 🔥 NEW CODE END */
+
+    .top-categories {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .category-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      width: 220px;
+      height: 180px;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: var(--card-bg-color);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .category-card:hover {
+      transform: scale(1.05);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .category-label {
+      position: absolute;
+      bottom: 8px;
+      left: 10px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    /* 🔥 NEW CODE START: Favorites Icon */
+    .fav-icon {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .fav-icon.active {
+      color: red;
+    }
+    /* 🔥 NEW CODE END */
+
+    .footer {
+      background-color: var(--navbar-bg);
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navdiv">
+      <div class="logo">
+        <img src="images/Logo.jpg" alt="Event Sphere Logo" />
+      </div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+
+        <!-- 🔥 NEW CODE START: Theme Palette Icon -->
+        <li class="theme-controls">
+          <label for="color-picker" class="palette-icon" title="Change Theme">🎨</label>
+          <input type="color" id="color-picker">
+        </li>
+        <!-- 🔥 NEW CODE END -->
+
+        <li><a href="#cal">Calendar</a></li>
+        <li><a href="#profile">Profile</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 🔥 NEW CODE START: Filter Dropdown -->
+  <section class="filter-section">
+    <label for="categoryFilter">Filter Categories:</label>
+    <select id="categoryFilter">
+      <option value="all">All</option>
+      <option value="sports">Sports</option>
+      <option value="comedy">Comedy</option>
+      <option value="theatre">Theatre</option>
+      <option value="movies">Movies</option>
+      <option value="concerts">Concerts</option>
+    </select>
+  </section>
+  <!-- 🔥 NEW CODE END -->
+
+  <!-- Top Categories -->
+  <section class="top-categories">
+    <h2>🎯 Top Categories</h2>
+    <div class="category-container">
+      <div class="category-card" data-category="sports">
+        <img src="https://placehold.co/220x180/87CEEB/ffffff?text=Sports" alt="">
+        <div class="category-label">⚽ Sports</div>
+        <span class="fav-icon">♡</span>
+      </div>
+
+      <div class="category-card" data-category="comedy">
+        <img src="https://placehold.co/220x180/FFA07A/ffffff?text=Comedy" alt="">
+        <div class="category-label">😂 Comedy</div>
+        <span class="fav-icon">♡</span>
+      </div>
+
+      <div class="category-card" data-category="theatre">
+        <img src="https://placehold.co/220x180/90EE90/ffffff?text=Theatre" alt="">
+        <div class="category-label">🎭 Theatre</div>
+        <span class="fav-icon">♡</span>
+      </div>
+
+      <div class="category-card" data-category="movies">
+        <img src="https://placehold.co/220x180/FF69B4/ffffff?text=Movies" alt="">
+        <div class="category-label">🎬 Movies</div>
+        <span class="fav-icon">♡</span>
+      </div>
+
+      <div class="category-card" data-category="concerts">
+        <img src="https://placehold.co/220x180/8A2BE2/ffffff?text=Concerts" alt="">
+        <div class="category-label">🎵 Concerts</div>
+        <span class="fav-icon">♡</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Powered by Chitkara University</p>
+    <p>&copy; 2025 Chitkara University. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // -----------------------------
+    // 🔥 THEME COLOR PICKER
+    // -----------------------------
+    const colorPicker = document.getElementById("color-picker");
+    const root = document.documentElement;
+    const savedColor = localStorage.getItem("themeColor");
+
+    if (savedColor) applyTheme(savedColor);
+
+    function applyTheme(color) {
+      root.style.setProperty("--navbar-bg", color);
+      root.style.setProperty("--card-bg-color", "#fff");
+      root.style.setProperty("--text-color", "#222");
+      root.style.setProperty("--body-bg", lightenColor(color, 0.85));
+      localStorage.setItem("themeColor", color);
+    }
+
+    document.querySelector(".palette-icon").addEventListener("click", () => colorPicker.click());
+    colorPicker.addEventListener("input", (e) => applyTheme(e.target.value));
+
+    // helper: lightens color
+    function lightenColor(hex, factor) {
+      const num = parseInt(hex.replace("#", ""), 16);
+      const r = (num >> 16) + Math.round(255 * factor);
+      const g = ((num >> 8) & 0x00ff) + Math.round(255 * factor);
+      const b = (num & 0x0000ff) + Math.round(255 * factor);
+      return "#" + (
+        0x1000000 +
+        (r < 255 ? r : 255) * 0x10000 +
+        (g < 255 ? g : 255) * 0x100 +
+        (b < 255 ? b : 255)
+      ).toString(16).slice(1);
+    }
+
+    // -----------------------------
+    // 🔥 FILTER CATEGORIES
+    // -----------------------------
+    const filterSelect = document.getElementById("categoryFilter");
+    const cards = document.querySelectorAll(".category-card");
+
+    filterSelect.addEventListener("change", () => {
+      const value = filterSelect.value;
+      cards.forEach(card => {
+        card.style.display = (value === "all" || card.dataset.category === value) ? "block" : "none";
+      });
+    });
+
+    // -----------------------------
+    // 🔥 FAVORITES (localStorage)
+    // -----------------------------
+    const favIcons = document.querySelectorAll(".fav-icon");
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favIcons.forEach(icon => {
+      const category = icon.closest(".category-card").dataset.category;
+      if (favorites.includes(category)) icon.classList.add("active");
+
+      icon.addEventListener("click", () => {
+        icon.classList.toggle("active");
+        if (icon.classList.contains("active")) {
+          favorites.push(category);
+        } else {
+          favorites = favorites.filter(fav => fav !== category);
+        }
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+      });
+    });
+  </script>
+</body>
+</html>
